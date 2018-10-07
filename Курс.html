@@ -1,0 +1,102 @@
+      <div class="Countdown" id="countdown">
+    <h1> До старта курса</h1>
+    <figure>
+        <span class="days"></span>
+        <figcaption class="smalltext">Дни</figcaption>
+    </figure>
+    <figure>
+        <span class="hours"></span>
+        <figcaption class="smalltext">Часы</figcaption>
+    </figure>
+    <figure>
+        <span class="minutes"></span>
+        <figcaption class="smalltext">Минуты</figcaption>
+    </figure>
+    <figure>
+        <span class="seconds"></span>
+        <figcaption class="smalltext">Секунды</figcaption>
+    </figure>
+</div>
+  <script type="text/javascript">
+  function getTimeRemaining(endtime) {
+      var t = Date.parse(endtime) - Date.parse(new Date());
+      var seconds = Math.floor((t / 1000) % 60);
+      var minutes = Math.floor((t / 1000 / 60) % 60);
+      var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+      var days = Math.floor(t / (1000 * 60 * 60 * 24));
+      return {
+        'total': t,
+        'days': days,
+        'hours': hours,
+        'minutes': minutes,
+        'seconds': seconds
+      };
+    }
+    function initializeClock(id, endtime) {
+      var clock = document.getElementById(id);
+      var daysSpan = clock.querySelector('.days');
+      var hoursSpan = clock.querySelector('.hours');
+      var minutesSpan = clock.querySelector('.minutes');
+      var secondsSpan = clock.querySelector('.seconds');
+
+      function updateClock() {
+        var t = getTimeRemaining(endtime);
+
+        daysSpan.innerHTML = t.days;
+        hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
+        minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
+        secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+
+        if (t.total <= 0) {
+          clearInterval(timeinterval);
+        }
+      }
+
+      updateClock();
+      var timeinterval = setInterval(updateClock, 1000);
+    }
+    var deadline = new Date('2018-10-10T18:20:00');
+    initializeClock('countdown', deadline);
+    </script>
+
+<style type="text/css">
+body {
+    display: flex;
+    width: 100%;
+    height: 400
+    margin: 0px;
+}
+
+.Countdown {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; 
+    align-items: flex-start;
+    align-content: stretch;
+    width: auto;
+    margin: auto;
+}
+.Countdown h1 {
+    display: block;
+    width: 100%;
+    margin-bottom: 7px;
+    text-align: center;
+    font-size: 30px;
+    color: #424242;
+}
+.Countdown figure {
+    display: block;
+    margin: 0;
+    padding: 10px 25px;
+    text-align: center;
+}
+.Countdown span {
+    font-size: 52px;
+    font-weight: bold;
+    color: #1565C0;
+}
+.Countdown figcaption {
+    font-size: 20px;
+    color: #90A4AE;
+}
+</style>
